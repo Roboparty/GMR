@@ -20,9 +20,9 @@
 
 This repository is forked from [GMR](https://github.com/YanjieZe/GMR)
 
-This repository has been modified to add 
--*IK-CONFIG auto-generation* from [GMR_autoik](https://github.com/HUST-3W/GMR_autoik)
--*Dataset Slicing*
+This repository has been modified to add \
+*IK-CONFIG auto-generation* from [GMR_autoik](https://github.com/HUST-3W/GMR_autoik) \
+*Dataset Slicing* \
 function for your own humanoid robots.
 
 ## Supported Robots and Data Formats in this repository
@@ -131,53 +131,6 @@ For AMP, pleased set `--save_as_pkl` to `True` to save dataset with `.pkl`.
 For BeyondMimic, pleased set `--save_as_csv` to `True` to save dataset with `.csv`.
 
 
-### PICO Streaming to Robot (TWIST2)
-
-Install PICO SDK:
-1. On your PICO, install PICO SDK: see [here](https://github.com/XR-Robotics/XRoboToolkit-Unity-Client/releases/).
-2. On your own PC, 
-    - Download [deb package for ubuntu 22.04](https://github.com/XR-Robotics/XRoboToolkit-PC-Service/releases/download/v1.0.0/XRoboToolkit_PC_Service_1.0.0_ubuntu_22.04_amd64.deb), or build from the [repo source](https://github.com/XR-Robotics/XRoboToolkit-PC-Service).
-    - To install, use command
-        ```bash
-        sudo dpkg -i XRoboToolkit_PC_Service_1.0.0_ubuntu_22.04_amd64.deb
-        ```
-        then you should see `xrobotoolkit-pc-service` in your APPs. remember to start this app before you do teleopperation.
-    - Build PICO PC Service SDK and Python SDK for PICO streaming:
-        ```bash
-        conda activate gmr
-
-        git clone https://github.com/YanjieZe/XRoboToolkit-PC-Service-Pybind.git
-        cd XRoboToolkit-PC-Service-Pybind
-
-        mkdir -p tmp
-        cd tmp
-        git clone https://github.com/XR-Robotics/XRoboToolkit-PC-Service.git
-        cd XRoboToolkit-PC-Service/RoboticsService/PXREARobotSDK 
-        bash build.sh
-        cd ../../../..
-        
-
-        mkdir -p lib
-        mkdir -p include
-        cp tmp/XRoboToolkit-PC-Service/RoboticsService/PXREARobotSDK/PXREARobotSDK.h include/
-        cp -r tmp/XRoboToolkit-PC-Service/RoboticsService/PXREARobotSDK/nlohmann include/nlohmann/
-        cp tmp/XRoboToolkit-PC-Service/RoboticsService/PXREARobotSDK/build/libPXREARobotSDK.so lib/
-        # rm -rf tmp
-
-        # Build the project
-        conda install -c conda-forge pybind11
-        pip uninstall -y xrobotoolkit_sdk
-        python setup.py install
-        ```
-
-You should be all set!
-
-To try it, check [this script from TWIST2](https://github.com/amazon-far/TWIST2/blob/master/teleop.sh):
-```bash
-bash teleop.sh
-```
-You should be able to see the retargeted robot motion in a mujoco window.
-
 ### Retargeting from SMPL-X (AMASS, OMOMO) to Robot
 
 Retarget a single motion:
@@ -242,6 +195,7 @@ python scripts/bvh_to_robot_dataset.py --src_folder <path_to_dir_of_bvh_data> --
 
 By default there is no visualization for batch retargeting.
 
+
 ### Retargeting from FBX (OptiTrack) to Robot
 
 #### Offline FBX Files
@@ -269,6 +223,55 @@ python scripts/fbx_offline_to_robot.py --motion_file <path_to_saved_motion_data.
 By default you should see the visualization of the retargeted robot motion in a mujoco window. 
 
 - `--rate_limit` is used to limit the rate of the retargeted robot motion to keep the same as the human motion. If you want it as fast as possible, remove `--rate_limit`.
+
+
+### PICO Streaming to Robot (TWIST2)
+
+Install PICO SDK:
+1. On your PICO, install PICO SDK: see [here](https://github.com/XR-Robotics/XRoboToolkit-Unity-Client/releases/).
+2. On your own PC, 
+    - Download [deb package for ubuntu 22.04](https://github.com/XR-Robotics/XRoboToolkit-PC-Service/releases/download/v1.0.0/XRoboToolkit_PC_Service_1.0.0_ubuntu_22.04_amd64.deb), or build from the [repo source](https://github.com/XR-Robotics/XRoboToolkit-PC-Service).
+    - To install, use command
+        ```bash
+        sudo dpkg -i XRoboToolkit_PC_Service_1.0.0_ubuntu_22.04_amd64.deb
+        ```
+        then you should see `xrobotoolkit-pc-service` in your APPs. remember to start this app before you do teleopperation.
+    - Build PICO PC Service SDK and Python SDK for PICO streaming:
+        ```bash
+        conda activate gmr
+
+        git clone https://github.com/YanjieZe/XRoboToolkit-PC-Service-Pybind.git
+        cd XRoboToolkit-PC-Service-Pybind
+
+        mkdir -p tmp
+        cd tmp
+        git clone https://github.com/XR-Robotics/XRoboToolkit-PC-Service.git
+        cd XRoboToolkit-PC-Service/RoboticsService/PXREARobotSDK 
+        bash build.sh
+        cd ../../../..
+        
+
+        mkdir -p lib
+        mkdir -p include
+        cp tmp/XRoboToolkit-PC-Service/RoboticsService/PXREARobotSDK/PXREARobotSDK.h include/
+        cp -r tmp/XRoboToolkit-PC-Service/RoboticsService/PXREARobotSDK/nlohmann include/nlohmann/
+        cp tmp/XRoboToolkit-PC-Service/RoboticsService/PXREARobotSDK/build/libPXREARobotSDK.so lib/
+        # rm -rf tmp
+
+        # Build the project
+        conda install -c conda-forge pybind11
+        pip uninstall -y xrobotoolkit_sdk
+        python setup.py install
+        ```
+
+You should be all set!
+
+To try it, check [this script from TWIST2](https://github.com/amazon-far/TWIST2/blob/master/teleop.sh):
+```bash
+bash teleop.sh
+```
+You should be able to see the retargeted robot motion in a mujoco window.
+
 
 #### Online Streaming
 
