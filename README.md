@@ -18,55 +18,20 @@
 
 ![Banner for GMR](./assets/GMR.png)
 
-![GMR](./assets/GMR_pipeline.png)
+This repository is forked from [GMR](https://github.com/YanjieZe/GMR)
 
-#### Key features of GMR:
-- Real-time high-quality retargeting, unlock the potential of real-time whole-body teleoperation, i.e., [TWIST](https://github.com/YanjieZe/TWIST).
-- Carefully tuned for good performance of RL tracking policies.
-- Support multiple humanoid robots and multiple human motion data formats (See our table below).
+This repository has been modified to add 
+-*IK-CONFIG auto-generation* from [GMR_autoik](https://github.com/HUST-3W/GMR_autoik)
+-*Dataset Slicing*
+function for your own humanoid robots.
 
-> [!NOTE]
-> If you want this repo to support a new robot or a new human motion data format, send the robot files (`.xml`, `.urdf`, and meshes) / human motion data to <a href="mailto:lastyanjieze@gmail.com">Yanjie Ze</a> or create an issue, we will support it as soon as possible. And please make sure the robot files you sent can be open-sourced in this repo.
-
-This repo is licensed under the [MIT License](LICENSE).
-
-
-# News & Updates
-- **2025-12-02:** GMR now supports [TWIST2](https://yanjieze.com/TWIST2), which utilizes [XRoboToolkit SDK](https://github.com/XR-Robotics/XRoboToolkit-PC-Service).
-- **2025-11-17:** To join our community for discussions, you can add my WeChat contact [QR Code](https://yanjieze.com/TWIST2/images/my_wechat.jpg) with info like "[GMR] [Your Name] [Your Affiliation]".
-- **2025-11-08:** [MimicKit] from Jason Peng now supports GMR format. Check [here](https://github.com/xbpeng/MimicKit/tree/main/tools/gmr_to_mimickit).
-- **2025-10-15:** Now supporting [PAL Robotics' Talos](https://pal-robotics.com/robot/talos/), the 15th humanoid robot.
-- **2025-10-14:** GMR now supports [Nokov](https://www.nokov.com/) BVH data.
-- **2025-10-14:** Add a doc on ik config. See [DOC.md](DOC.md)
-- **2025-10-09:** Check [TWIST](https://github.com/YanjieZe/TWIST) open-sourced code for RL motion tracking.
-- **2025-10-02:** Tech report for GMR is now on [arXiv](https://arxiv.org/abs/2510.02252).
-- **2025-10-01:** GMR now supports converting GMR pickle files to CSV (for beyondmimic), check `scripts/batch_gmr_pkl_to_csv.py`.
-- **2025-09-25:** An introduction on GMR is available on [Bilibili](https://www.bilibili.com/video/BV1p1nazeEzC/?share_source=copy_web&vd_source=c76e3ab14ac3f7219a9006b96b4b0f76).
-- **2025-09-16:** GMR now supports to use [GVHMR](https://github.com/zju3dv/GVHMR) for extracting human pose from **monocular video** and retargeting to robot.
-- **2025-09-12:** GMR now supports [Tienkung](https://github.com/Open-X-Humanoid/TienKung-Lab), the 14th humanoid robot in the repo.
-- **2025-08-30:** GMR now supports [Unitree H1 2](https://www.unitree.com/cn/h1) and [PND Adam Lite](https://pndbotics.com/), the 12th and 13th humanoid robots in the repo.
-- **2025-08-28:** GMR now supports [Booster T1](https://www.boosterobotics.com/) for both 23dof and 29dof.
-- **2025-08-28:** GMR now supports using exported offline FBX motion data from [OptiTrack](https://www.optitrack.com/). 
-- **2025-08-27:** GMR now supports [Berkeley Humanoid Lite](https://github.com/HybridRobotics/Berkeley-Humanoid-Lite-Assets), the 11th humanoid robot in the repo.
-- **2025-08-24:** GMR now supports [Unitree H1](https://www.unitree.com/h1/), the 10th humanoid robot in the repo.
-- **2025-08-24:** GMR now supports velocity limits for the robot motors, `use_velocity_limit=True` by default in `GeneralMotionRetargeting` class (and we use 3*pi as the velocity limit by default); we also add printing of robot DoF/Body/Motor names and their IDs by default, and you can access them via `robot_dof_names`, `robot_body_names`, and `robot_motor_names` attributes.
-- **2025-08-10:** GMR now supports [Booster K1](https://www.boosterobotics.com/), the 9th robot in the repo.
-- **2025-08-09:** GMR now supports *Unitree G1 with Dex31 hands*.
-- **2025-08-07:** GMR now supports [Galexea R1 Pro](https://galaxea-dynamics.com/) (this is a wheeled humanoid robot!) and [KUAVO](https://www.kuavo.ai/), the 7th and 8th humanoid robots in the repo.
-- **2025-08-06:** GMR now supports [HighTorque Hi](https://www.hightorquerobotics.com/hi/), the 6th humanoid robot in the repo.
-- **2025-08-04:** Initial release of GMR. Check our [twitter post](https://x.com/ZeYanjie/status/1952446745696469334).
-
-## Supported Robots and Data Formats
-
-
+## Supported Robots and Data Formats in this repository
 
 | Assigned ID | Robot/Data Format | Robot DoF | SMPLX ([AMASS](https://amass.is.tue.mpg.de/), [OMOMO](https://github.com/lijiaman/omomo_release)) | BVH [LAFAN1](https://github.com/ubisoft/ubisoft-laforge-animation-dataset)| FBX ([OptiTrack](https://www.optitrack.com/)) |  BVH [Nokov](https://www.nokov.com/) | PICO ([XRoboToolkit](https://github.com/XR-Robotics/XRoboToolkit-PC-Service)) | More formats coming soon | 
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 0 | Unitree G1 `unitree_g1` | Leg (2\*6) + Waist (3) + Arm (2\*7) = 29 | ✅ | ✅ | ✅ |  ✅ | ✅ |
 | 1 | Unitree G1 with Hands `unitree_g1_with_hands` | Leg (2\*6) + Waist (3) + Arm (2\*7) + Hand (2\*7) = 43 | ✅ | ✅ | ✅ | TBD | TBD |
 | 2 | Roboparty `atom_01` | Leg (2\*6) + Waist (1) + Arm (2\*5) = 23 | ✅ | TBD | TBD | TBD | TBD |
-
-
 
 
 ## Installation
@@ -122,7 +87,51 @@ Each frame of **robot motion data** can be understood as a tuple of (robot_base_
 
 ## Usage
 
-### [NEW] PICO Streaming to Robot (TWIST2)
+### Robot IK_CONFIG Automatic Generation
+This function is implemented in the ik_config_manager folder to generate optimized *human_scale* and *pos/quat_offset* parameters.
+
+1. Add a {robot}_tpose.json file in the pose_inits folder (to set the robot's initial pose to T-pose).
+2. Add the bvh/smplx_to_robot_origin.json file to the ik_configs folder (primarily requiring joint_match to fully align the humanoid robot with human_data in T-pose).
+
+![T-pose](./ik_config_manager/bvh-TPOSE.png)
+
+3. Then,
+
+For BVH Format：
+```bash
+python ik_config_manager/generate_keypoint_mapping_bvh.py \
+    --bvh_file ik_config_manager/TPOSE.bvh \
+    --robot unitree_g1 \
+    --loop \
+    --robot_qpos_init ik_config_manager/pose_inits/unitree_g1_tpose.json \
+    --ik_config_in general_motion_retargeting/ik_configs/bvh_lafan1_to_g1.json \
+    --ik_config_out general_motion_retargeting/ik_configs/bvh_lafan1_to_g1_auto.json
+```
+
+For SMPLX Format：
+```bash
+python ik_config_manager/generate_keypoint_mapping_smplx.py \
+    --smplx_file ik_config_manager/SMPLX_TPOSE_UNIFIED_AMASS.npz \
+    --robot unitree_g1 \
+    --loop \
+    --robot_qpos_init ik_config_manager/pose_inits/unitree_g1_tpose.json \
+    --ik_config_in general_motion_retargeting/ik_configs/smplx_to_g1.json \
+    --ik_config_out general_motion_retargeting/ik_configs/smplx_to_g1_auto.json
+```
+
+### Dataset Slicing
+This function is added in `smplx_to_robot.py`, `bvh_to_robot.py`, `gvhmr_to_robot.py` to obtain dataset slices.
+
+To use this feature, please set `--save_slice` to `True` and manully set start and end frame using `--slice_motion_start_end`.
+
+
+### Dataset Format
+For AMP, pleased set `--save_as_pkl` to `True` to save dataset with `.pkl`.
+
+For BeyondMimic, pleased set `--save_as_csv` to `True` to save dataset with `.csv`.
+
+
+### PICO Streaming to Robot (TWIST2)
 
 Install PICO SDK:
 1. On your PICO, install PICO SDK: see [here](https://github.com/XR-Robotics/XRoboToolkit-Unity-Client/releases/).
@@ -170,9 +179,6 @@ bash teleop.sh
 You should be able to see the retargeted robot motion in a mujoco window.
 
 ### Retargeting from SMPL-X (AMASS, OMOMO) to Robot
-
-> [!NOTE]
-> NOTE: after install SMPL-X, change `ext` in `smplx/body_models.py` from `npz` to `pkl` if you are using SMPL-X pkl files.
 
 Retarget a single motion:
 
@@ -353,19 +359,15 @@ Designing a single config for all different humans is not trivial. We observe so
 
 [GMR: General Motion Retargeting](https://github.com/YanjieZe/GMR): MIT license
 
+[GMR: General Motion Retargeting(Fork for IK-CONFIG auto-generation)](https://github.com/HUST-3W/GMR_autoik): MIT license
 
-Our IK solver is built upon [mink](https://github.com/kevinzakka/mink) and [mujoco](https://github.com/google-deepmind/mujoco). Our visualization is built upon [mujoco](https://github.com/google-deepmind/mujoco). The human motion data we try includes [AMASS](https://amass.is.tue.mpg.de/), [OMOMO](https://github.com/lijiaman/omomo_release), and [LAFAN1](https://github.com/ubisoft/ubisoft-laforge-animation-dataset).
+Our IK solver is built upon [mink](https://github.com/kevinzakka/mink) and [mujoco](https://github.com/google-deepmind/mujoco). 
+
+Our visualization is built upon [mujoco](https://github.com/google-deepmind/mujoco). 
+
+The human motion data we try includes [AMASS](https://amass.is.tue.mpg.de/), [OMOMO](https://github.com/lijiaman/omomo_release), and [LAFAN1](https://github.com/ubisoft/ubisoft-laforge-animation-dataset).
 
 The original robot models can be found at the following locations:
 
-* [Berkley Humanoid Lite](https://github.com/HybridRobotics/Berkeley-Humanoid-Lite-Assets): CC-BY-SA-4.0 license
-* [Booster K1](https://www.boosterobotics.com/)
-* [Booster T1](https://booster.feishu.cn/wiki/UvowwBes1iNvvUkoeeVc3p5wnUg) ([English](https://booster.feishu.cn/wiki/DtFgwVXYxiBT8BksUPjcOwG4n4f))
-* [EngineAI PM01](https://github.com/engineai-robotics/engineai_ros2_workspace): [Link to file](https://github.com/engineai-robotics/engineai_ros2_workspace/blob/community/src/simulation/mujoco/assets/resource) 
-* [Fourier N1](https://github.com/FFTAI/Wiki-GRx-Gym): [Link to file](https://github.com/FFTAI/Wiki-GRx-Gym/tree/FourierN1/legged_gym/resources/robots/N1)
-* [Galaxea R1 Pro](https://galaxea-dynamics.com/): MIT license
-* [HighToqure Hi](https://www.hightorquerobotics.com/hi/)
-* [LEJU Kuavo S45](https://gitee.com/leju-robot/kuavo-ros-opensource/blob/master/LICENSE): MIT license
-* [PAL Robotics' Talos](https://github.com/google-deepmind/mujoco_menagerie): [Link to file](https://github.com/google-deepmind/mujoco_menagerie/tree/main/pal_talos)
-* [Toddlerbot](https://github.com/hshi74/toddlerbot): [Link to file](https://github.com/hshi74/toddlerbot/tree/main/toddlerbot/descriptions/toddlerbot_active)
+* [Roboparty Atom01](https://github.com/Roboparty/atom01_description)
 * [Unitree G1](https://github.com/unitreerobotics/unitree_ros): [Link to file](https://github.com/unitreerobotics/unitree_ros/tree/master/robots/g1_description)

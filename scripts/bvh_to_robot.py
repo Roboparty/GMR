@@ -440,13 +440,7 @@ if __name__ == "__main__":
             print(f"[ERROR] Converting to numpy-compatible failed for {npz_path}: {e}")
             npz_dict = {}
             
-        # 选择保存格式
-        PKL = args.save_as_pkl
-        NPZ = args.save_as_npz
-        TXT = args.save_as_txt
-        CSV = args.save_as_csv
-    
-        if NPZ:
+        if args.save_as_npz:
             # 1) 保存 npz
             try:
                 np.savez_compressed(npz_path, **npz_dict)
@@ -454,7 +448,7 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"[ERROR] Saving .npz failed for {npz_path}: {e}")
                 
-        if PKL:
+        if args.save_as_pkl:
             # 2) 保存 pkl
             try:
                 joblib.dump(npz_dict, pkl_path)
@@ -462,7 +456,7 @@ if __name__ == "__main__":
             except Exception as _e:
                 print(f"[WARN] joblib dump failed for {pkl_path}: {_e}")
 
-        if TXT:
+        if args.save_as_txt:
             # 3) 保存 txt
             try:
                 with open(txt_path, "w") as f:
@@ -472,7 +466,7 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"[ERROR] Saving .txt failed for {txt_path}: {e}")
                 
-        if CSV:
+        if args.save_as_csv:
             # 4) 保存 csv
             try:
                 def export_to_csv(root_pos, root_rot, dof_pos, filename):
